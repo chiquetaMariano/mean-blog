@@ -34,7 +34,7 @@ router.post('/signup', async (req, res) => {
   } else {
     const emailUser = await User.findOne({email: email});
     if(emailUser){
-      // show  error message
+      // show  error message: The email is already in use
     }
     const newUser = new User({name, email, password});
     newUser.password = await newUser.encryptPassword(password);
