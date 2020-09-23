@@ -1,0 +1,24 @@
+<div class="row custom-separation">
+    <div class="col-md-3" ng-repeat="note in notesList">
+        <div class="card custom-separation">
+            <div class="card-body">
+                <h4 class="card-title d-flex justify-content-between align-items-center">
+                    {{note.title}} <a href="#!/notes/edit/{{note._id}}"><em class="fas fa-edit"></em></a>
+                </h4>
+                <p>{{note.description}}</p>
+                <form ng-submit="delete(note._id)" ng-controller="NoteDeleteCtrl">
+                    <button class="btn btn-danger btn-block btn-sm" type="submit">
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- {{else}} -->
+    <div class="card mx-auto" ng-if="notesList.length == 0">
+        <div class="card-body">
+            <p class="lead">There are not notes yet.</p>
+            <a href="#!/notes/add" class="btn btn-success btn-block">Create One!</a>
+        </div>
+    </div>
+</div>
