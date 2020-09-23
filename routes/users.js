@@ -3,6 +3,8 @@ var router = express.Router();
 
 const User = require('../models/User');
 
+const passport = require('passport');
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -11,6 +13,11 @@ router.get('/', function(req, res, next) {
 router.get('/signin', (req, res) => {
   res.render('users/signin');
 });
+
+router.post('/sigin', passport.authenticate('local',{
+  successRedirect: '/notes',
+  failureRedirect: '/users/sigin'
+}))
 
 router.get('/signup', (req, res) => {
   res.render('users/signup');
@@ -24,7 +31,7 @@ router.post('/signup', async (req, res) => {
     errors.push({text: 'Please, insert your name'});
   }
   if(password != confirm_password) {
-    errors.push({text: 'Passwords do not match'}):
+    errors.push({text: 'Passwords do not match'});
   }
   if(password.length < 4){
     errors.push({text: 'Password must be at least 4 characters'});
