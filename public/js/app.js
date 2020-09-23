@@ -22,8 +22,12 @@ function($routeProvider, $locationProvider) {
     }).when('/notes/edit/:id', {
         templateUrl: 'partials/edit-note.html',
         controller: 'ShowSingleCtrl'
-    }).when('/notes/delete/:id', {
-        controller: 'NoteDeleteCtrl'
+    }).when('/users/signup',{
+      templateUrl: 'partials/users/signup.html',
+      controller: 'UserSignupCtrl'
+    }).when('/users/signin',{
+      templateUrl: 'partials/users/signin.html',
+      controller: 'UserSigninCtrl'
     });
 
     $locationProvider.html5Mode(false).hashPrefix('!');

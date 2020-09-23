@@ -38,7 +38,7 @@ router.delete('/:id', async (req, res) => {
     await Note.findByIdAndDelete(req.params.id);
 });
 
-router.put('/edit-note/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     const {title, description } = req.body;
     await Note.findByIdAndUpdate(req.params.id, {title, description});
     res.redirect('/notes');

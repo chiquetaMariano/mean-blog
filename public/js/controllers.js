@@ -33,6 +33,7 @@ notesControllers.controller('NoteAddCtrl',
 function NoteAddCtrl($scope, Note, $location) {
     $scope.submit = function(){
         $scope.sub = true;
+
         var note = {
             "title" : $scope.title,
             "description" : $scope.description
@@ -54,27 +55,32 @@ function NoteAddCtrl($scope, Note, $location) {
 notesControllers.controller('ShowSingleCtrl',
 ['$scope', '$routeParams','Note',
 function ShowCtrl($scope, $routeParams, Note) {
-    Note.get({id: $routeParams.id},
+     Note.get({id: $routeParams.id},
         function success(response) {
             $scope.note = response.note;
+            $scope.title = response.note.title;
+            $scope.description = response.note.description;
             console.log(response);
             console.log("Success:" + JSON.stringify(response));
-
         },
         function error(errorResponse) {
             console.log("Error:" + JSON.stringify(errorResponse));
         }
-);
-
+      );
 }]);
 
 // Edit notes - update
 notesControllers.controller('NoteEditCtrl',
-['$scope', '$routeParams', 'Note',
-function NoteEditCtrl($scope, $routeParams, Note) {
-    var noteId = $routeParams.id;
+['$scope', '$routeParams', '$location','Note','$http',
+function NoteEditCtrl($scope, $routeParams, $location, Note, $http) {
+    $scope.update = function(noteId){
+      // console.log(noteId);
+        var note = {
+          "title" : $scope.title,
+          "description" : $scope.description
+        };
 
-    Note.update({id: noteId},
+        Note.update({id: noteId}, note,
         function success(response){
             console.log("Success: " + JSON.stringify(response));
         },
@@ -82,6 +88,7 @@ function NoteEditCtrl($scope, $routeParams, Note) {
             console.log("Error: " + JSON.stringify(errorResponse));
         }
     );
+  };
 }]);
 
 // Delete notes
@@ -90,7 +97,7 @@ notesControllers.controller('NoteDeleteCtrl',
 function NoteEditCtrl($scope, $location, Note) {
     $scope.delete = function(noteId) {
 
-    console.log(noteId);
+    // console.log(noteId);
     Note.delete({id: noteId},
         function success(response){
             console.log("Success: " + JSON.stringify(response));
@@ -101,4 +108,12 @@ function NoteEditCtrl($scope, $location, Note) {
     );
     $location.path('/notes');
 };
+}]);
+
+// Users
+notesControllers.controller('UserSignupCtrl',
+['$scope', '$location', '$http',
+  function UserCtrl($scope, $location, $http) {
+    $scope.message = "Singup";
+    $location.path('/users/signup');
 }]);
