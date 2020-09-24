@@ -41,7 +41,7 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const {title, description } = req.body;
     await Post.findByIdAndUpdate(req.params.id, {title, description});
-    res.redirect('/posts'); // remove this line?
+    // res.redirect('/posts');
 });
 
 module.exports = router;
