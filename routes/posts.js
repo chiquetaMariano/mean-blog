@@ -1,10 +1,10 @@
 const router = require('express').Router();
 
-const Note = require('../models/Note');
+const Post = require('../models/Post');
 
 router.get('/', async (req, res) => {
-    const notes = await Note.find().sort({date: 'desc'});
-    res.send({ notes });
+    const posts = await Post.find().sort({date: 'desc'});
+    res.send({ posts });
 });
 
 router.post('/', async (req, res) => {
@@ -18,30 +18,30 @@ router.post('/', async (req, res) => {
     }
     if(errors.length > 0) {
         console.log(errors);
-        // res.render('notes/new-note', {
+        // res.render('posts/new-post', {
         //     errors,
         //     title,
         //     description
         // });
     } else {
-        const newNote = new Note({ title, description});
-        await newNote.save();
+        const newPost = new Post({ title, description});
+        await newPost.save();
     }
 });
 
 router.get('/:id', async (req, res) => {
-    const note = await Note.findById(req.params.id);
-    res.send({note});
+    const post = await Post.findById(req.params.id);
+    res.send({post});
 });
 
 router.delete('/:id', async (req, res) => {
-    await Note.findByIdAndDelete(req.params.id);
+    await Post.findByIdAndDelete(req.params.id);
 });
 
 router.put('/:id', async (req, res) => {
     const {title, description } = req.body;
-    await Note.findByIdAndUpdate(req.params.id, {title, description});
-    res.redirect('/notes'); // remove this line?
+    await Post.findByIdAndUpdate(req.params.id, {title, description});
+    res.redirect('/posts'); // remove this line?
 });
 
 module.exports = router;

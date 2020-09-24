@@ -1,8 +1,8 @@
 /* chapter7/services.js complete file */
 'use strict';
 /* Services */
-var notesServices =
-angular.module('notesServices', ['ngResource']);
+var postsServices =
+angular.module('postsServices', ['ngResource']);
 
 // var headers = {
 //     // 'Authorization': 'Basic ' + btoa(username + ":" + password),
@@ -11,9 +11,9 @@ angular.module('notesServices', ['ngResource']);
 //     "X-Requested-With": "XMLHttpRequest"
 //     }
 
-notesServices.factory('Note', ['$resource',
+postsServices.factory('Post', ['$resource',
 function($resource) {
-    return $resource("./NodeNotes/notes/:id",
+    return $resource("./NodePosts/posts/:id",
     {}, {
         get: {method: 'GET', cache: false, isArray: false},
         save: {method: 'POST', cache: false, isArray: false},
@@ -23,9 +23,9 @@ function($resource) {
 }
 ]);
 
-notesServices.factory('NotesList', ['$resource',
+postsServices.factory('PostsList', ['$resource',
 function($resource) {
-    return $resource("./NodeNotes/notes",
+    return $resource("./NodePosts/posts",
     {}, {
         get: {method: 'GET', cache: false, isArray: false}
     });

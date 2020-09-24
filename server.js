@@ -12,7 +12,7 @@ require('./config/passport');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var notesRouter = require('./routes/notes');
+var postsRouter = require('./routes/posts');
 
 var app = express();
 
@@ -36,7 +36,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // ROUTERS
-app.use('/NodeNotes/notes',notesRouter);
+app.use('/NodePosts/posts',postsRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

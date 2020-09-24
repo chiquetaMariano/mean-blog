@@ -1,22 +1,22 @@
 'use strict';
 
-var notesControllers = angular.module('notesControllers', []);
+var postsControllers = angular.module('postsControllers', []);
 
-notesControllers.controller('MainCtrl',
+postsControllers.controller('MainCtrl',
 ['$scope', '$location', '$http',
 function MainCtrl($scope, $location, $http) {
     $scope.message = "Main";
-    $location.path('/notes');
+    $location.path('/posts');
 }]);
 
-// Load notes
-notesControllers.controller('ShowCtrl',
-['$scope', 'NotesList',
-function ShowCtrl($scope, NotesList) {
-    $scope.notesList = new Array();
-    NotesList.get({},
+// Load posts
+postsControllers.controller('ShowCtrl',
+['$scope', 'PostsList',
+function ShowCtrl($scope, PostsList) {
+    $scope.postsList = new Array();
+    PostsList.get({},
         function success(response) {
-            $scope.notesList = response.notes;
+            $scope.postsList = response.posts;
             console.log(response);
             console.log("Success:" + JSON.stringify(response));
         },
@@ -27,19 +27,19 @@ function ShowCtrl($scope, NotesList) {
 
 }]);
 
-// Add notes
-notesControllers.controller('NoteAddCtrl',
-['$scope', 'Note', '$location',
-function NoteAddCtrl($scope, Note, $location) {
+// Add posts
+postsControllers.controller('PostAddCtrl',
+['$scope', 'Post', '$location',
+function PostAddCtrl($scope, Post, $location) {
     $scope.submit = function(){
         $scope.sub = true;
 
-        var note = {
+        var post = {
             "title" : $scope.title,
             "description" : $scope.description
         };
 
-        Note.save({}, note,
+        Post.save({}, post,
             function success(response) {
                 console.log("Success:" + JSON.stringify(response));
             },
@@ -47,19 +47,19 @@ function NoteAddCtrl($scope, Note, $location) {
                 console.log("Error:" + JSON.stringify(errorResponse));
             }
         );
-        $location.path('/notes');
+        $location.path('/posts');
     };
 }]);
 
-// Edit notes - show
-notesControllers.controller('ShowSingleCtrl',
-['$scope', '$routeParams','Note',
-function ShowCtrl($scope, $routeParams, Note) {
-     Note.get({id: $routeParams.id},
+// Edit posts - show
+postsControllers.controller('ShowSingleCtrl',
+['$scope', '$routeParams','Post',
+function ShowCtrl($scope, $routeParams, Post) {
+     Post.get({id: $routeParams.id},
         function success(response) {
-            $scope.note = response.note;
-            $scope.title = response.note.title;
-            $scope.description = response.note.description;
+            $scope.post = response.post;
+            $scope.title = response.post.title;
+            $scope.description = response.post.description;
             console.log(response);
             console.log("Success:" + JSON.stringify(response));
         },
@@ -69,21 +69,21 @@ function ShowCtrl($scope, $routeParams, Note) {
       );
 }]);
 
-// Edit notes - update
-notesControllers.controller('NoteEditCtrl',
-['$scope', '$routeParams', '$location','Note',
-function NoteEditCtrl($scope, $routeParams, $location, Note, $http) {
-    $scope.update = function(noteId){
-      // console.log(noteId);
-        var note = {
+// Edit posts - update
+postsControllers.controller('PostEditCtrl',
+['$scope', '$routeParams', '$location','Post',
+function PostEditCtrl($scope, $routeParams, $location, Post, $http) {
+    $scope.update = function(postId){
+      // console.log(postId);
+        var post = {
           "title" : $scope.title,
           "description" : $scope.description
         };
 
-        Note.update({id: noteId}, note,
+        Post.update({id: postId}, post,
         function success(response){
             console.log("Success: " + JSON.stringify(response));
-            $location.path('/notes');
+            $location.path('/posts');
         },
         function error(errorResponse) {
             console.log("Error: " + JSON.stringify(errorResponse));
@@ -92,14 +92,14 @@ function NoteEditCtrl($scope, $routeParams, $location, Note, $http) {
   };
 }]);
 
-// Delete notes
-notesControllers.controller('NoteDeleteCtrl',
-['$scope', '$location', 'Note',
-function NoteEditCtrl($scope, $location, Note) {
-    $scope.delete = function(noteId) {
+// Delete posts
+postsControllers.controller('PostDeleteCtrl',
+['$scope', '$location', 'Post',
+function PostEditCtrl($scope, $location, Post) {
+    $scope.delete = function(postId) {
 
-    // console.log(noteId);
-    Note.delete({id: noteId},
+    // console.log(postId);
+    Post.delete({id: postId},
         function success(response){
             console.log("Success: " + JSON.stringify(response));
         },
@@ -107,12 +107,12 @@ function NoteEditCtrl($scope, $location, Note) {
             console.log("Error: " + JSON.stringify(errorResponse));
         }
     );
-    $location.path('/notes');
+    $location.path('/posts');
 };
 }]);
 
 // Users
-notesControllers.controller('UserSignupCtrl',
+postsControllers.controller('UserSignupCtrl',
 ['$scope', '$location', '$http',
   function UserCtrl($scope, $location, $http) {
     $scope.message = "Singup";

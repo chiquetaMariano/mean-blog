@@ -1,26 +1,26 @@
 'use strict';
 
 /* App Module */
-var notesApp = angular.module('notesApp', [
+var postsApp = angular.module('postsApp', [
     'ngRoute',
-    'notesControllers',
-    'notesServices'
+    'postsControllers',
+    'postsServices'
 ]);
 
-notesApp.config(['$routeProvider', '$locationProvider',
+postsApp.config(['$routeProvider', '$locationProvider',
 function($routeProvider, $locationProvider) {
     $routeProvider.
     when('/', {
         templateUrl: 'partials/main.html',
         controller: 'MainCtrl'
-    }).when('/notes', {
-        templateUrl: 'partials/all-notes.html',
+    }).when('/posts', {
+        templateUrl: 'partials/all-posts.html',
         controller: 'ShowCtrl'
-    }).when('/notes/add', {
-        templateUrl: 'partials/new-note.html',
-        controller: 'NoteAddCtrl'
-    }).when('/notes/edit/:id', {
-        templateUrl: 'partials/edit-note.html',
+    }).when('/posts/add', {
+        templateUrl: 'partials/new-post.html',
+        controller: 'PostAddCtrl'
+    }).when('/posts/edit/:id', {
+        templateUrl: 'partials/edit-post.html',
         controller: 'ShowSingleCtrl'
     }).when('/users/signup',{
       templateUrl: 'partials/users/signup.html',

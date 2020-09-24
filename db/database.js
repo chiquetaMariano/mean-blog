@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/notes-angular', {
+mongoose.connect('mongodb://localhost/mean-blog', {
     useCreateIndex: true,
     useNewUrlParser: true,
     useFindAndModify: false
