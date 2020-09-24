@@ -41,7 +41,7 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const {title, description } = req.body;
     await Note.findByIdAndUpdate(req.params.id, {title, description});
-    res.redirect('/notes');
+    res.redirect('/notes'); // remove this line?
 });
 
 module.exports = router;

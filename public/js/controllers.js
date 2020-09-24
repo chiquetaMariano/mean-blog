@@ -71,7 +71,7 @@ function ShowCtrl($scope, $routeParams, Note) {
 
 // Edit notes - update
 notesControllers.controller('NoteEditCtrl',
-['$scope', '$routeParams', '$location','Note','$http',
+['$scope', '$routeParams', '$location','Note',
 function NoteEditCtrl($scope, $routeParams, $location, Note, $http) {
     $scope.update = function(noteId){
       // console.log(noteId);
@@ -83,6 +83,7 @@ function NoteEditCtrl($scope, $routeParams, $location, Note, $http) {
         Note.update({id: noteId}, note,
         function success(response){
             console.log("Success: " + JSON.stringify(response));
+            $location.path('/notes');
         },
         function error(errorResponse) {
             console.log("Error: " + JSON.stringify(errorResponse));
