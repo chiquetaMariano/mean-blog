@@ -1,5 +1,33 @@
 const router = require('express').Router();
 
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null, './public/uploads/');
+  },
+  filename: function(req, file, cb){
+    cb(null, Date.now() + file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  if(file.mymetype === 'image/jpeg' || file.mymetype === 'image/png'){
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+
+const upload = multer({
+  storage: storage
+  // ,
+  // fileFilter: fileFilter
+});
+
+// const upload = multer({dest: './public/uploads'});
+
 const Post = require('../models/Post');
 
 router.get('/', async (req, res) => {
@@ -7,8 +35,15 @@ router.get('/', async (req, res) => {
     res.send({ posts });
 });
 
-router.post('/', async (req, res) => {
+router.post('/', upload.single('postImage'), async (req, res) => {
+    // console.log(req.file);
     const { title, description} = req.body;
+    const post = new Post({
+      title: req.body.title,
+      description: req.body.description,
+      image: req.file.path
+    });
+
     const errors = [];
     if(!title) {
         errors.push({text: 'Please Write a Title'});
@@ -24,7 +59,7 @@ router.post('/', async (req, res) => {
         //     description
         // });
     } else {
-        const newPost = new Post({ title, description});
+        const newPost = post;
         await newPost.save();
     }
 });
