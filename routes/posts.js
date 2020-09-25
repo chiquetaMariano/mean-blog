@@ -26,8 +26,6 @@ const upload = multer({
   // fileFilter: fileFilter
 });
 
-// const upload = multer({dest: './public/uploads'});
-
 const Post = require('../models/Post');
 
 router.get('/', async (req, res) => {
@@ -38,11 +36,20 @@ router.get('/', async (req, res) => {
 router.post('/', upload.single('postImage'), async (req, res) => {
     // console.log(req.file);
     const { title, description} = req.body;
-    const post = new Post({
-      title: req.body.title,
-      description: req.body.description,
-      image: req.file.path
-    });
+    var post;
+    if(req.file){
+      post = new Post({
+        title: req.body.title,
+        description: req.body.description,
+        image: req.file.path.substring(6)
+      });
+    } else {
+      post = new Post({
+        title: req.body.title,
+        description: req.body.description,
+      });
+    }
+
 
     const errors = [];
     if(!title) {
