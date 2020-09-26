@@ -12,7 +12,7 @@
             <div class="col-md-4 mb-5" ng-repeat="post in postsList">
                 <div class="card-content">
                     <div class="card-img">
-                        <img src="https://placeimg.com/380/230/nature" alt="">
+                        <img ng-if="post.image != null" src="{{post.image}}" alt="">
                         <span><a href="#!/posts/edit/{{post._id}}" class="btn"><em class="fas fa-edit"></em>Edit</a></span>
                     </div>
                     <div class="card-desc">
