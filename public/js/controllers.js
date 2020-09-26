@@ -113,8 +113,8 @@ function PostEditCtrl($scope, $location, Post) {
 
 // Users
 postsControllers.controller('UserSignupCtrl',
-['$scope', '$location', '$http',
-  function UserCtrl($scope, $location, $http) {
+['$scope', '$location',
+  function UserCtrl($scope, $location) {
     $scope.message = "Singup";
     $location.path('/users/signup');
 }]);

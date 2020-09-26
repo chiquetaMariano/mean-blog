@@ -1,9 +1,15 @@
+<script type="text/javascript">
+$('#btnSubmit').click( function(){
+  setTimeout(function(){ window.location.replace('/'); }, 400);
+});
+</script>
 <div class="col-md-4 mx-auto custom-separation">
     <div class="card">
         <div class="card-header">
             <h3>New Post</h3>
         </div>
         <div class="card-body">
+          <!-- replace action /NodePosts/posts route with proper route and controller -->
             <form action="/NodePosts/posts" ng-controller="PostAddCtrl" method="POST"
             enctype="multipart/form-data">
                 <div class="form-group">

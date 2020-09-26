@@ -50,7 +50,6 @@ router.post('/', upload.single('postImage'), async (req, res) => {
       });
     }
 
-
     const errors = [];
     if(!title) {
         errors.push({text: 'Please Write a Title'});
